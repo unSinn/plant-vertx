@@ -6,7 +6,8 @@ import org.vertx.java.core.eventbus.EventBus;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.json.JsonObject;
 
-import businesslogic.Logic;
+import ch.ma3.plant.businesslogic.Logic;
+
 
 public class EventBusFactory {
 

@@ -1,4 +1,4 @@
-package businesslogic;
+package ch.ma3.plant.businesslogic;
 
 import org.vertx.java.core.eventbus.EventBus;
 import org.vertx.java.core.json.JsonObject;
