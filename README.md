@@ -1,4 +1,4 @@
 plant-vertx
 ===========
 
-Vert.x implementation of a Webserver displaying values mesured with an Arduino.
+Vert.x implementation of a webserver displaying values measured with an Arduino.

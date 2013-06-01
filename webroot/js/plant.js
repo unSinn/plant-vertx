@@ -2,11 +2,13 @@ var eb = new vertx.EventBus('http://localhost:8080/eventbus');
 
 eb.onopen = function() {
 	$("#status_info").text("Connected");
-	eb.registerHandler('CLIENT_LOG_HANDLER', function(message) {
-		$('#logcontent').append(message.message);
+	eb.registerHandler('CLIENT', function(response) {
+		$('#logcontent').append('</br>' + response.message);
+		$('#chart').text(JSON.stringify(response.data));
 
 	});
-	eb.send('some-address', {
+
+	eb.send('SERVER', {
 		name : 'tim',
 		age : 587
 	});

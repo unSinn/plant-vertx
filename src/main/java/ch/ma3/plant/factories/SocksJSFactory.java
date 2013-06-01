@@ -16,9 +16,8 @@ public class SocksJSFactory {
 		SockJSServer sockJSServer = vertx.createSockJSServer(httpServer);
 		sockJSServer.bridge(new JsonObject().putString("prefix", "/eventbus"),
 				permitted, permitted);
-
 		return sockJSServer;
-
+		
 	}
 
 }
