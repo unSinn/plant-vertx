@@ -21,7 +21,7 @@ And finally displayed with Chart.js (http://www.chartjs.org/).
 Running
 --------
 Build the fat jar with.
-   gradle jar
+`gradle jar`
    
 Transfer the jar and the webroot-folder to your Raspberry. Then on the Raspberry run:
-   java -jar plant-vertx-0.1.jar
+`java -jar plant-vertx-0.1.jar`
