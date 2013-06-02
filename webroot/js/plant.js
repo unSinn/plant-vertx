@@ -3,9 +3,10 @@ var eb = new vertx.EventBus('http://localhost:8080/eventbus');
 eb.onopen = function() {
 	$("#status_info").text("Connected");
 	eb.registerHandler('CLIENT', function(response) {
-		$('#logcontent').append('</br>' + response.message);
-		$('#chart').text(JSON.stringify(response.data));
 
+		// Get context with jQuery - using jQuery's .get() method.
+		var ctx = $("#lineChart").get(0).getContext("2d");
+		new Chart(ctx).Line(response, {});
 	});
 
 	eb.send('SERVER', {

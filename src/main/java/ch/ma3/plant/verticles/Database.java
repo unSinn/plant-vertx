@@ -1,10 +1,13 @@
 package ch.ma3.plant.verticles;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.vertx.java.core.json.JsonArray;
 
-import ch.ma3.plant.entities.Mesurement;
+import ch.ma3.plant.entities.Measurement;
+import ch.ma3.plant.entities.Sensor;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -14,22 +17,19 @@ import com.j256.ormlite.table.TableUtils;
 
 public class Database {
 
-	private Dao<Mesurement, Integer> measurementDao;
+	private Dao<Measurement, Integer> measurementDao;
+	private Dao<Sensor, Integer> sensorDao;
 	private static Database instance;
+	private static final String databaseUrl = "jdbc:sqlite:plant.db";
+	private ConnectionSource connectionSource;
 
 	private Database() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			String databaseUrl = "jdbc:sqlite:plant.db";
 
-			ConnectionSource connectionSource = new JdbcConnectionSource(
-					databaseUrl);
+			connectionSource = new JdbcConnectionSource(databaseUrl);
 
-			measurementDao = DaoManager.createDao(connectionSource,
-					Mesurement.class);
-
-			TableUtils.createTableIfNotExists(connectionSource,
-					Mesurement.class);
+			createTables();
 
 		} catch (ClassNotFoundException e) {
 
@@ -49,7 +49,21 @@ public class Database {
 		}
 	}
 
-	public void addMesurement(Mesurement m) {
+	private void createTables() throws SQLException {
+		measurementDao = DaoManager.createDao(connectionSource,
+				Measurement.class);
+		sensorDao = DaoManager.createDao(connectionSource, Sensor.class);
+		TableUtils.createTableIfNotExists(connectionSource, Measurement.class);
+		TableUtils.createTableIfNotExists(connectionSource, Sensor.class);
+	}
+
+	public void wipeData() throws SQLException {
+		TableUtils.dropTable(connectionSource, Measurement.class, false);
+		TableUtils.dropTable(connectionSource, Sensor.class, false);
+		createTables();
+	}
+
+	public void saveMesurement(Measurement m) {
 		try {
 			measurementDao.create(m);
 		} catch (SQLException e) {
@@ -57,13 +71,23 @@ public class Database {
 		}
 	}
 
-	public JsonArray getMeasurements() {
+	public List<Measurement> getMeasurements() {
 		try {
-			Object[] mesurements = measurementDao.queryForAll().toArray();
-			return new JsonArray(mesurements);
+			List<Measurement> mesurements = measurementDao.queryForAll();
+			return mesurements;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return new JsonArray();
+		return new ArrayList<>();
+	}
+
+	public List<Sensor> getSensors() {
+		try {
+			List<Sensor> sensors = sensorDao.queryForAll();
+			return sensors;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
 	}
 }
