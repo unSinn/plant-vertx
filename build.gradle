@@ -4,11 +4,13 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 version = '0.1'
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'Plant on Vert.x', 'Implementation-Version': version
         manifest { attributes 'Main-Class': 'ch.ma3.plant.Main' }
     }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 repositories {
@@ -22,14 +24,9 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-jdbc:4.45'
             
     testCompile 'junit:junit:4.11'
-    
-    deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
 }
 
 test {
     systemProperties 'property': 'value'
 }
-// Make a fat jar
-jar {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-}
+
