@@ -22,6 +22,6 @@ Build the fat jar with.
 
 `gradle jar`
    
-Transfer the jar and the * folder* to your Raspberry. Then on the Raspberry run:
+Transfer the jar and the *webroot* folder to your Raspberry. Then on the Raspberry run:
 
 `java -jar plant-vertx-0.1.jar`
