@@ -14,6 +14,8 @@ public class Sensor {
 	private int id;
 	@DatabaseField()
 	private String name;
+	@DatabaseField()
+	private String color;
 	@ForeignCollectionField(eager = false)
 	private Collection<Measurement> measurements;
 
@@ -35,6 +37,14 @@ public class Sensor {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

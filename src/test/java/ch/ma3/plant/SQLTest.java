@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
+import ch.ma3.plant.converters.rickshaw.ColorPalette;
 import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
 import ch.ma3.plant.verticles.Database;
@@ -26,7 +26,7 @@ public class SQLTest {
 
 		for (int i = 0; i < numberOfMeasurements; i++) {
 			Measurement m = new Measurement();
-			//One measurement each 10 Seconds
+			// One measurement each 10 Seconds
 			m.setDate(new Date(System.currentTimeMillis() + 10000 * i));
 			m.setValue(i + 1.23f);
 			m.setSensor(sensor);
@@ -42,20 +42,23 @@ public class SQLTest {
 	public void testMultiSensor() throws SQLException {
 		int numberOfSensors = 5;
 		int numberOfMeasurements = 100;
-		
+
 		Database db = Database.getDatabaseInstance();
 		db.wipeData();
 
 		for (int i = 0; i < numberOfSensors; i++) {
 			Sensor sensor = new Sensor();
 			sensor.setName("TestSensor" + i);
+			sensor.setColor(ColorPalette.colors[i]);
+			float sensorRange = i;
 			db.saveSensor(sensor);
 
 			for (int j = 0; j < numberOfMeasurements; j++) {
 				Measurement m = new Measurement();
-				//One measurement each 10 Seconds
-				m.setDate(new Date(System.currentTimeMillis() + 10000 * i));
-				m.setValue(i * 2 + j + 1.23f);
+				// One measurement each 10 Seconds
+				m.setDate(new Date(System.currentTimeMillis() + (10000 * j)));
+				m.setValue((float) (Math.pow(i + 1, sensorRange) * Math
+						.random()));
 				m.setSensor(sensor);
 				sensor.addMeasurement(m);
 				db.saveMesurement(m);

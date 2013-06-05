@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.vertx.java.core.json.JsonArray;
-
 import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
 
