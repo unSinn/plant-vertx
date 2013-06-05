@@ -1,7 +1,7 @@
 package ch.ma3.plant.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -18,11 +18,11 @@ public class Sensor {
 	private Collection<Measurement> measurements;
 
 	public Sensor() {
-		measurements = new LinkedList<>();
+		measurements = new ArrayList<>();
 	}
 
-	public Collection<Measurement> getMeasurements() {
-		return measurements;
+	public ArrayList<Measurement> getMeasurements() {
+		return new ArrayList<Measurement>(measurements);
 	}
 
 	public void addMeasurement(Measurement m) {

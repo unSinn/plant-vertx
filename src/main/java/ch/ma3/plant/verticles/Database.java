@@ -71,6 +71,14 @@ public class Database {
 		}
 	}
 
+	public void saveSensor(Sensor s) {
+		try {
+			sensorDao.create(s);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public List<Measurement> getMeasurements() {
 		try {
 			List<Measurement> mesurements = measurementDao.queryForAll();
