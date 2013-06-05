@@ -5,3 +5,10 @@
 *.war
 *.ear
 *.db
+
+# Eclipse Shait #
+
+.classpath
+.gradle/
+.project
+.settings/
