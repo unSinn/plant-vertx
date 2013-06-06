@@ -1,8 +1,16 @@
 var eb = new vertx.EventBus('http://localhost:8080/eventbus');
+var palette = new Rickshaw.Color.Palette();
 
 eb.onopen = function() {
 	$("#status_info").text("Connected");
 	eb.registerHandler('CLIENT', function(response) {
+		
+		
+
+		for ( var i = 0; i < response.series.length; i++) {
+			serie = response.series[i];
+			serie.color = palette.color();
+		}
 
 		var graph = new Rickshaw.Graph({
 			element : document.querySelector("#chart"),

@@ -18,7 +18,6 @@ public class RickshawConverter {
 		for (Sensor s : sensors) {
 			RickshawSerie serie = convertMeasurmentDataToChartValue(s);
 			serie.setName(s.getName());
-			serie.setColor(s.getColor());
 			collection.addSerie(serie);
 		}
 

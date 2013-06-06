@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ch.ma3.plant.converters.rickshaw.ColorPalette;
 import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
 import ch.ma3.plant.verticles.Database;
@@ -49,7 +48,6 @@ public class SQLTest {
 		for (int i = 0; i < numberOfSensors; i++) {
 			Sensor sensor = new Sensor();
 			sensor.setName("TestSensor" + i);
-			sensor.setColor(ColorPalette.colors[i]);
 			float sensorRange = i;
 			db.saveSensor(sensor);
 
