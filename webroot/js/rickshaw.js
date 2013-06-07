@@ -41,35 +41,35 @@ if (typeof module !== 'undefined' && module.exports) {
 /* Adapted from https://github.com/Jakobo/PTClass */
 
 /*
-Copyright (c) 2005-2010 Sam Stephenson
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ * Copyright (c) 2005-2010 Sam Stephenson
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 /* Based on Alex Arnell's inheritance implementation. */
-/** section: Language
- * class Class
- *
- *  Manages Prototype's class-based OOP system.
- *
- *  Refer to Prototype's web site for a [tutorial on classes and
- *  inheritance](http://prototypejs.org/learn/class-inheritance).
-**/
+/**
+ * section: Language class Class
+ * 
+ * Manages Prototype's class-based OOP system.
+ * 
+ * Refer to Prototype's web site for a [tutorial on classes and
+ * inheritance](http://prototypejs.org/learn/class-inheritance).
+ */
 (function(globalContext) {
 /* ------------------------------------ */
-/* Import from object.js                */
+/* Import from object.js */
 /* ------------------------------------ */
 var _toString = Object.prototype.toString,
     NULL_TYPE = 'Null',
@@ -83,7 +83,10 @@ function isFunction(object) {
   return _toString.call(object) === FUNCTION_CLASS;
 }
 function extend(destination, source) {
-  for (var property in source) if (source.hasOwnProperty(property)) // modify protect primitive slaughter
+  for (var property in source) if (source.hasOwnProperty(property)) // modify
+																	// protect
+																	// primitive
+																	// slaughter
     destination[property] = source[property];
   return destination;
 }
@@ -114,7 +117,7 @@ function isUndefined(object) {
   return typeof object === "undefined";
 }
 /* ------------------------------------ */
-/* Import from Function.js              */
+/* Import from Function.js */
 /* ------------------------------------ */
 var slice = Array.prototype.slice;
 function argumentNames(fn) {
@@ -149,17 +152,19 @@ function bind(fn, context) {
 }
 
 /* ------------------------------------ */
-/* Import from Prototype.js             */
+/* Import from Prototype.js */
 /* ------------------------------------ */
 var emptyFunction = function(){};
 
 var Class = (function() {
   
-  // Some versions of JScript fail to enumerate over properties, names of which 
+  // Some versions of JScript fail to enumerate over properties, names of
+	// which
   // correspond to non-enumerable properties in the prototype chain
   var IS_DONTENUM_BUGGY = (function(){
     for (var p in { toString: 1 }) {
-      // check actual property name, so that it works with augmented Object.prototype
+      // check actual property name, so that it works with augmented
+		// Object.prototype
       if (p === 'toString') return false;
     }
     return true;
@@ -199,7 +204,8 @@ var Class = (function() {
     var ancestor   = this.superclass && this.superclass.prototype,
         properties = keys(source);
 
-    // IE6 doesn't enumerate `toString` and `valueOf` (among other built-in `Object.prototype`) properties,
+    // IE6 doesn't enumerate `toString` and `valueOf` (among other built-in
+	// `Object.prototype`) properties,
     // Force copy if they're not Object.prototype ones.
     // Do not copy other Object.prototype.* for performance reasons
     if (IS_DONTENUM_BUGGY) {
@@ -246,7 +252,10 @@ Rickshaw.namespace('Rickshaw.Compat.ClassList');
 
 Rickshaw.Compat.ClassList = function() {
 
-	/* adapted from http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
+	/*
+	 * adapted from
+	 * http://purl.eligrey.com/github/classList.js/blob/master/classList.js
+	 */
 
 	if (typeof document !== "undefined" && !("classList" in document.createElement("a"))) {
 
@@ -314,7 +323,8 @@ Rickshaw.Compat.ClassList = function() {
 			return new ClassList(this);
 		}
 	;
-	// Most DOMException implementations don't allow calling DOMException's toString()
+	// Most DOMException implementations don't allow calling DOMException's
+	// toString()
 	// on non-DOMExceptions. Error's toString() is sufficient here.
 	DOMEx[protoProp] = Error[protoProp];
 	classListProto.item = function (i) {
@@ -523,11 +533,13 @@ Rickshaw.Graph = function(args) {
 
 		this.series.forEach( function(series, index) {
 			if (series.scale) {
-				// apply scale to each series
+				// apply scale to each serie
 				var seriesData = data[index];
-				seriesData.forEach( function(d) {
-					d.y = series.scale(d.y);
-				} );
+				if(seriesData) {
+					seriesData.forEach( function(d) {
+						d.y = series.scale(d.y);
+					} );
+				}
 			}
 		} );
 
@@ -1535,7 +1547,8 @@ Rickshaw.Graph.Axis.Y.Scaled = Rickshaw.Class.create( Rickshaw.Graph.Axis.Y, {
   },
 
   _drawAxis: function($super, scale) {
-    // make a copy of the custom scale, adjust the range to match the graph's scale
+    // make a copy of the custom scale, adjust the range to match the graph's
+	// scale
     var adjustedScale = this.scale.copy().range(scale.range());
 
     return $super(adjustedScale);
@@ -1571,7 +1584,8 @@ Rickshaw.Graph.Behavior.Series.Highlight = function(args) {
 
 				if (l === line) {
 
-					// if we're not in a stacked renderer bring active line to the top
+					// if we're not in a stacked renderer bring active line to
+					// the top
 					if (index > 0 && self.graph.renderer.unstack) {
 
 						var seriesIndex = self.graph.series.length - index - 1;
@@ -1661,7 +1675,7 @@ Rickshaw.Graph.Behavior.Series.Order = function(args) {
 		$(self.legend.list).disableSelection();
 	});
 
-	//hack to make jquery-ui sortable behave
+	// hack to make jquery-ui sortable behave
 	this.graph.onUpdate( function() { 
 		var h = window.getComputedStyle(self.legend.element).height;
 		self.legend.element.style.height = h;
@@ -1713,7 +1727,8 @@ Rickshaw.Graph.Behavior.Series.Toggle = function(args) {
                         // show all or none
                         if ( disableAllOtherLines ) {
 
-                                // these must happen first or else we try ( and probably fail ) to make a no line graph
+                                // these must happen first or else we try ( and
+								// probably fail ) to make a no line graph
                                 line.series.enable();
                                 line.element.classList.remove('disabled');
 
@@ -2173,7 +2188,7 @@ Rickshaw.Graph.Renderer = Rickshaw.Class.create( {
 	},
 
 	seriesPathFactory: function() {
-		//implement in subclass
+		// implement in subclass
 	},
 
 	seriesStrokeFactory: function() {
@@ -2929,7 +2944,8 @@ Rickshaw.Series.FixedDuration = Rickshaw.Class.create(Rickshaw.Series, {
 		// reset timeBase for zero-filled values if needed
 		this.timeBase -= (this.maxDataPoints - this.currentSize) * this.timeInterval;
 
-		// zero-fill up to maxDataPoints size if we don't have that much data yet
+		// zero-fill up to maxDataPoints size if we don't have that much data
+		// yet
 		if ((typeof(this.maxDataPoints) !== 'undefined') && (this.currentSize < this.maxDataPoints)) {
 			for (var i = this.maxDataPoints - this.currentSize - 1; i > 0; i--) {
 				this.currentSize  += 1;

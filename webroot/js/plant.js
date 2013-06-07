@@ -4,12 +4,19 @@ var palette = new Rickshaw.Color.Palette();
 eb.onopen = function() {
 	$("#status_info").text("Connected");
 	eb.registerHandler('CLIENT', function(response) {
-		
-		
 
 		for ( var i = 0; i < response.series.length; i++) {
 			serie = response.series[i];
 			serie.color = palette.color();
+
+			var min = d3.min(serie.data, function(d) {
+				return d.y
+			});
+			var max = d3.max(serie.data, function(d) {
+				return d.y
+			});
+			
+			serie.scale = d3.scale.linear().domain([ min, max ]).nice();
 		}
 
 		var graph = new Rickshaw.Graph({
