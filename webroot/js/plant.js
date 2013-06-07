@@ -15,7 +15,7 @@ eb.onopen = function() {
 			var max = d3.max(serie.data, function(d) {
 				return d.y
 			});
-			
+
 			serie.scale = d3.scale.linear().domain([ min, max ]).nice();
 		}
 
@@ -50,6 +50,11 @@ eb.onopen = function() {
 
 		new Rickshaw.Graph.HoverDetail({
 			graph : graph
+		});
+
+		var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+			graph : this.graph,
+			legend : this.legend
 		});
 
 		graph.render();

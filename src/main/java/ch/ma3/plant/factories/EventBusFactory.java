@@ -17,8 +17,8 @@ public class EventBusFactory {
 	public static void addDataHandlerTo(final EventBus eb) {
 		Handler<Message<JsonObject>> serverDataHandler = new Handler<Message<JsonObject>>() {
 			public void handle(Message<JsonObject> message) {
-				Logic dl = new Logic(eb);
-				dl.gotDataRequestFromClient();
+				Logic logic = new Logic(eb);
+				logic.gotDataRequestFromClient();
 			}
 		};
 		eb.registerHandler(SERVER, serverDataHandler);

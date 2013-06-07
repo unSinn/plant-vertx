@@ -48,15 +48,13 @@ public class SQLTest {
 		for (int i = 0; i < numberOfSensors; i++) {
 			Sensor sensor = new Sensor();
 			sensor.setName("TestSensor" + i);
-			float sensorRange = i;
 			db.saveSensor(sensor);
 
 			for (int j = 0; j < numberOfMeasurements; j++) {
 				Measurement m = new Measurement();
 				// One measurement each 10 Seconds
 				m.setDate(new Date(System.currentTimeMillis() + (10000 * j)));
-				m.setValue((float) (Math.pow(i + 1, sensorRange) * Math
-						.random()));
+				m.setValue((float) (Math.pow(i + 1, i) * Math.random()));
 				m.setSensor(sensor);
 				sensor.addMeasurement(m);
 				db.saveMesurement(m);

@@ -8,11 +8,12 @@ import org.vertx.java.core.logging.Logger;
 import org.vertx.java.core.logging.impl.LoggerFactory;
 
 import ch.ma3.plant.converters.rickshaw.RickshawConverter;
+import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
 import ch.ma3.plant.factories.EventBusFactory;
 import ch.ma3.plant.verticles.Database;
 
-public class Logic {
+public class Logic implements DataCollector {
 
 	Logger log = LoggerFactory.getLogger(Logic.class);
 	private EventBus eb;
@@ -28,10 +29,14 @@ public class Logic {
 
 		List<Sensor> sensors = db.getSensors();
 
-		JsonObject response = RickshawConverter
-				.sensorDataToRickshaw(sensors);
-		
+		JsonObject response = RickshawConverter.sensorDataToRickshaw(sensors);
+
 		eb.publish(EventBusFactory.CLIENT, response);
 		log.info("Data sent.");
+	}
+
+	@Override
+	public void logData(Measurement measurement) {
+		db.saveMesurement(measurement);
 	}
 }
