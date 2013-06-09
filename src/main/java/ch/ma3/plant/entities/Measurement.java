@@ -40,4 +40,7 @@ public class Measurement {
 		this.date = date;
 	}
 
+	public String toString() {
+		return sensor + " " + date.toString() + " " + value;
+	}
 }

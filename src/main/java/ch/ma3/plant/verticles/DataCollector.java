@@ -1,9 +1,8 @@
-package ch.ma3.plant.businesslogic;
+package ch.ma3.plant.verticles;
 
 import ch.ma3.plant.entities.Measurement;
 
 
 public interface DataCollector {
-
-	void logData(Measurement measurement);
+	void saveData(Measurement measurement);
 }

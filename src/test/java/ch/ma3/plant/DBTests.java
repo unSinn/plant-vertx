@@ -10,7 +10,7 @@ import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
 import ch.ma3.plant.verticles.Database;
 
-public class SQLTest {
+public class DBTests {
 
 	@Test
 	public void test() throws SQLException {
@@ -40,7 +40,7 @@ public class SQLTest {
 	@Test
 	public void testMultiSensor() throws SQLException {
 		int numberOfSensors = 5;
-		int numberOfMeasurements = 100;
+		int numberOfMeasurements = 10;
 
 		Database db = Database.getDatabaseInstance();
 		db.wipeData();

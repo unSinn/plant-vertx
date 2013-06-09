@@ -1,6 +1,8 @@
-package ch.ma3.plant.collectors;
+package ch.ma3.plant.datasources;
 
-import ch.ma3.plant.businesslogic.DataCollector;
+import ch.ma3.plant.verticles.DataCollector;
+
+
 
 public interface DataSource {
 	void setDataCollector(DataCollector collector);
