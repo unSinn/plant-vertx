@@ -50,8 +50,8 @@ public class MockDataSource extends Verticle implements DataSource {
 	}
 
 	@Override
-	public void setDataCollector(DataCollector dataCollector) {
+	public DataSource setDataCollector(DataCollector dataCollector) {
 		this.dataCollector = dataCollector;
-
+		return this;
 	}
 }

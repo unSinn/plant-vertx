@@ -11,6 +11,11 @@ And finally displayed with Chart.js (http://www.chartjs.org/).
 
 **Webbrowser** <- HTTP,SockJS -> **Raspberry Pi / Vert.x** <- USB -> **Arduino**
 
+Dependencies
+------------
+RXTX 
+    'sudo apt-get install librxtx-java'
+
 Database
 --------
 SQLite with OrmLite (http://ormlite.com/).

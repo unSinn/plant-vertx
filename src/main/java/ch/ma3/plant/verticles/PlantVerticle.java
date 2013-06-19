@@ -12,6 +12,7 @@ import org.vertx.java.core.logging.impl.LoggerFactory;
 import org.vertx.java.deploy.Verticle;
 
 import ch.ma3.plant.converters.rickshaw.RickshawConverter;
+import ch.ma3.plant.datasources.DataSource;
 import ch.ma3.plant.datasources.DataSourceFactory;
 import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
@@ -35,7 +36,8 @@ public class PlantVerticle extends Verticle implements DataCollector {
 		SocksJSFactory.getSockJSServer(vertx, httpServer);
 
 		try {
-			DataSourceFactory.getMockDataSource(vertx).setDataCollector(this);
+			DataSource dataSource = DataSourceFactory.getArduinoDataSource(
+					vertx, this);
 		} catch (Exception e) {
 			log.error(e);
 			e.printStackTrace();
