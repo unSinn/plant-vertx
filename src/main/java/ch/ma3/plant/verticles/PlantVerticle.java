@@ -1,6 +1,6 @@
 package ch.ma3.plant.verticles;
 
-import java.util.List;
+import java.util.Map;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.EventBus;
@@ -12,7 +12,6 @@ import org.vertx.java.core.logging.impl.LoggerFactory;
 import org.vertx.java.deploy.Verticle;
 
 import ch.ma3.plant.converters.rickshaw.RickshawConverter;
-import ch.ma3.plant.datasources.DataSource;
 import ch.ma3.plant.datasources.DataSourceFactory;
 import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
@@ -36,8 +35,7 @@ public class PlantVerticle extends Verticle implements DataCollector {
 		SocksJSFactory.getSockJSServer(vertx, httpServer);
 
 		try {
-			DataSource dataSource = DataSourceFactory.getArduinoDataSource(
-					vertx, this);
+			DataSourceFactory.getArduinoDataSource(vertx, this);
 		} catch (Exception e) {
 			log.error(e);
 			e.printStackTrace();
@@ -57,11 +55,8 @@ public class PlantVerticle extends Verticle implements DataCollector {
 
 	private void gotDataRequestFromClient() {
 		log.info("Got DataRequest From Client.");
-
-		List<Sensor> sensors = db.getSensors();
-
+		Map<String, Sensor> sensors = db.getSensors();
 		JsonObject response = RickshawConverter.sensorDataToRickshaw(sensors);
-
 		eb.publish(CLIENT, response);
 		log.info("Data sent.");
 	}
@@ -69,5 +64,15 @@ public class PlantVerticle extends Verticle implements DataCollector {
 	@Override
 	public void saveData(Measurement measurement) {
 		db.saveMesurement(measurement);
+	}
+
+	@Override
+	public void addSensor(Sensor s) {
+		db.saveSensor(s);
+	}
+
+	@Override
+	public Map<String, Sensor> getSensors() {
+		return db.getSensors();
 	}
 }

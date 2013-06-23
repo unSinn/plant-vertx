@@ -29,7 +29,7 @@ public class MockDataSource extends Verticle implements DataSource {
 			@Override
 			public void handle(Long event) {
 				int i = 0;
-				for (Sensor sensor : db.getSensors()) {
+				for (Sensor sensor : db.getSensors().values()) {
 					Measurement m = createFakeMeasurement(i, sensor);
 					dataCollector.saveData(m);
 					i++;

@@ -33,8 +33,9 @@ public class Sensor {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Sensor setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 }

@@ -2,7 +2,9 @@ package ch.ma3.plant.verticles;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ch.ma3.plant.entities.Measurement;
 import ch.ma3.plant.entities.Sensor;
@@ -87,13 +89,16 @@ public class Database {
 		return new ArrayList<>();
 	}
 
-	public List<Sensor> getSensors() {
+	public Map<String, Sensor> getSensors() {
+		HashMap<String, Sensor> map = new HashMap<>();
 		try {
 			List<Sensor> sensors = sensorDao.queryForAll();
-			return sensors;
+			for (Sensor s : sensors) {
+				map.put(s.getName(), s);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<>();
+		return map;
 	}
 }

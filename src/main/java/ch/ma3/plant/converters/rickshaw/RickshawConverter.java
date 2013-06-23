@@ -1,7 +1,7 @@
 package ch.ma3.plant.converters.rickshaw;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.json.impl.Json;
@@ -11,11 +11,11 @@ import ch.ma3.plant.entities.Sensor;
 
 public class RickshawConverter {
 
-	public static JsonObject sensorDataToRickshaw(List<Sensor> sensors) {
+	public static JsonObject sensorDataToRickshaw(Map<String, Sensor> sensors) {
 
 		RickshawCollection collection = new RickshawCollection();
 
-		for (Sensor s : sensors) {
+		for (Sensor s : sensors.values()) {
 			RickshawSerie serie = convertMeasurmentDataToChartValue(s);
 			serie.setName(s.getName());
 			collection.addSerie(serie);

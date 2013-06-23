@@ -41,6 +41,6 @@ public class Measurement {
 	}
 
 	public String toString() {
-		return sensor + " " + date.toString() + " " + value;
+		return sensor.getName() + " " + date.toString() + " " + value;
 	}
 }

@@ -22,7 +22,7 @@ dependencies {
     compile 'org.xerial:sqlite-jdbc:3.7.2'
     compile 'com.j256.ormlite:ormlite-core:4.45'
     compile 'com.j256.ormlite:ormlite-jdbc:4.45'
-    compile 'org.rxtx:rxtx:2.1.7'
+    compile files('lib/jssc.jar')
     testCompile 'junit:junit:4.11'
 }
 
